@@ -1,1 +1,11 @@
 @import "reset";
+
+img {
+  width: 20px;
+}
+
+#mais-preco-menor,
+#mais-preco-maior,
+#carregar-mais-recente {
+  display: none;
+}
