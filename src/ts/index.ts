@@ -211,50 +211,113 @@ function main() {
     }
   });
 
-  //document.getElementById("sortButton")?.addEventListener("click", () => {
-  //  const sortedProductList = ordenarMenorPreco(allProducts);
-  //console.log(sortedProductList);
-  //renderProducts(sortedProductList);
-  //});
+  // Função auxiliar para verificar se o preço está dentro da faixa selecionada
+  function isPriceInRange(price: number, priceRange: string): boolean {
+    const [min, max] = priceRange.split("-").map(parseFloat);
+    return price >= min && price <= max;
+  }
 
-  // DESCARTADO NO MOMENTO Carregar todos produtos da API
-  //async function fetchAllProducts() {
-  //  try {
-  //    const response = await fetch("http://localhost:5000/products");
-  //    if (!response.ok) {
-  //      throw new Error("Erro ao buscar os produtos");
-  //   }
-  //   allProducts = await response.json();
-  //   renderProducts(allProducts); // Renderizar todos os produtos
-  //   const carregarMais = document.getElementById("carregar-mais");
-  //   carregarMais ? (carregarMais.style.display = "none") : null; //Remover botão
-  //} catch (error) {
-  //  console.error(error);
-  // }
-  //}
+  // Função para filtrar e renderizar produtos
+  function filterAndRenderProducts(): void {
+    // Crie arrays para armazenar as seleções de tamanhos, cores e faixa de preço
+    const selectedSizes: string[] = [];
+    const selectedColors: string[] = [];
+    const selectedPrices: string[] = [];
 
-  //teste para pegar o array
-  //function waitForProducts() {
-  //return new Promise((resolve) => {
-  // Verificar se os produtos já foram carregados
-  //if (allProducts.length > 0) {
-  //resolve(allProducts);
-  //} else {
-  // Se não foram carregados, esperar até que sejam carregados pela função fetchProducts
-  //const intervalId = setInterval(() => {
-  //if (allProducts.length > 0) {
-  //clearInterval(intervalId);
-  //resolve(allProducts);
-  //}
-  //}, 100);
-  //}
-  //});
-  //}
+    carregarMais.style.display = "none";
 
-  // Exemplo de como acessar os produtos fora da função fetchProducts
-  //waitForProducts().then((products) => {
-  //console.log("Produtos carregados:", products);
-  //  });
+    // Verifique as seleções de tamanho
+    const sizeCheckboxes: NodeListOf<HTMLInputElement> =
+      document.querySelectorAll('input[id^="size-"]:checked');
+    sizeCheckboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        selectedSizes.push(checkbox.value);
+      }
+    });
+
+    // Verifique as seleções de cores
+    const colorCheckboxes: NodeListOf<HTMLInputElement> =
+      document.querySelectorAll('input[id^="color-"]:checked');
+
+    colorCheckboxes.forEach((checkbox) => {
+      selectedColors.push(checkbox.value);
+    });
+
+    // Verifique as seleções de faixa de preço
+    const priceCheckboxes: NodeListOf<HTMLInputElement> =
+      document.querySelectorAll('input[id^="price-"]:checked');
+    priceCheckboxes.forEach((checkbox) => {
+      selectedPrices.push(checkbox.value);
+    });
+
+    // Filtrar os produtos com base nas seleções
+    const filteredProducts: Product[] = allProducts.filter((product) => {
+      // Filtro de tamanho
+      if (
+        selectedSizes.length > 0 &&
+        !selectedSizes.some((size) => product.size.includes(size))
+      ) {
+        return false;
+      }
+
+      // Filtro de cor
+      if (
+        selectedColors.length > 0 &&
+        !selectedColors.some(
+          (color) => product.color.toLowerCase() === color.toLowerCase()
+        )
+      ) {
+        return false;
+      }
+
+      // Filtro de faixa de preço
+      if (selectedPrices.length > 0) {
+        const productPrice: number = product.price;
+        if (
+          !selectedPrices.some((priceRange) =>
+            isPriceInRange(productPrice, priceRange)
+          )
+        ) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    renderProducts(filteredProducts);
+  }
+
+  // Ouvinte de eventos para o botão "Limpar Seleções"
+  document.getElementById("clearButton")?.addEventListener("click", () => {
+    // Desmarque todos os checkboxes selecionados
+    const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(
+      'input[type="checkbox"]'
+    );
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+    filterAndRenderProducts();
+  });
+
+  // Adicione ouvintes de eventos de "change" aos checkboxes
+  const sizeCheckboxes: NodeListOf<HTMLInputElement> =
+    document.querySelectorAll('input[id^="size-"]');
+  sizeCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", filterAndRenderProducts);
+  });
+
+  const colorCheckboxes: NodeListOf<HTMLInputElement> =
+    document.querySelectorAll('input[id^="color-"]');
+  colorCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", filterAndRenderProducts);
+  });
+
+  const priceCheckboxes: NodeListOf<HTMLInputElement> =
+    document.querySelectorAll('input[id^="price-"]');
+  priceCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", filterAndRenderProducts);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", main);
