@@ -1,116 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Desenvolvedor M3</title>
+
+  <!--Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
+  <header>
+    <figure class="logo">
+      <img src="./img/logo-m3.png" alt="Logo M3">
+    </figure>
+  
+    <figure class="sacola">
+      <img src="./img/sacola.png" alt="Sacola do carrinho">
+  
+      <div id="cart-count-bg">
+        <span id="cart-count"></span>
+      </div>    
+    </figure>
+  </header>
 
+  <main>
+    <h1>Blusas</h1>
+  
+  
+    <div id="lista-produtos"></div>
+    <button id="carregar-mais">Carregar Mais</button>
+    <button id="mais-preco-menor">carregar mais por preço menor</button>
+    <button id="mais-preco-maior">carregar mais por preço maior</button>
+    <button id="carregar-mais-recente">carregar mais recente</button>
+    <button id="preco-menor">preço menor</button>
+    <button id="preco-maior">preço maior</button>
+    <button id="mais-recente">mais recente</button>
+    
+    <hr>
+    
+    <label>
+      <input type="checkbox" id="size-P" value="P"> P
+    </label>
+    <label>
+      <input type="checkbox" id="size-M" value="M"> M
+    </label>
+    <label>
+      <input type="checkbox" id="size-G" value="G"> G
+    </label>
+    <label>
+      <input type="checkbox" id="size-GG" value="GG"> GG
+    </label>
+    <label>
+      <input type="checkbox" id="size-U" value="U"> U
+    </label>
+    <label>
+      <input type="checkbox" id="size-36" value="36"> 36
+    </label>
+    <label>
+      <input type="checkbox" id="size-38" value="38"> 38
+    </label>
+    <label>
+      <input type="checkbox" id="size-40" value="40"> 40
+    </label>
+    
+    <!-- Filtros de cores -->
+    <label>
+      <input type="checkbox" id="color-amarelo" value="amarelo"> Amarelo
+    </label>
+    <label>
+      <input type="checkbox" id="color-azul" value="azul"> Azul
+    </label>
+    <label>
+      <input type="checkbox" id="color-branco" value="branco"> Branco
+    </label>
+    <label>
+      <input type="checkbox" id="color-cinza" value="cinza"> Cinza
+    </label>
+    <label>
+      <input type="checkbox" id="color-laranja" value="laranja"> Laranja
+    </label>
+    <label>
+      <input type="checkbox" id="color-verde" value="verde"> Verde
+    </label>
+    <label>
+      <input type="checkbox" id="color-vermelho" value="vermelho"> Vermelho
+    </label>
+    <label>
+      <input type="checkbox" id="color-preto" value="preto"> Preto
+    </label>
+    <label>
+      <input type="checkbox" id="color-rosa" value="rosa"> Rosa
+    </label>
+    <label>
+      <input type="checkbox" id="color-vinho " value="vinho"> Vinho
+    </label>
+    
+    
+    <!-- Filtros de faixa de preço -->
+    <label>
+      <input type="checkbox" id="price-0-50" value="0-50"> De R$0 até R$50
+    </label>
+    <label>
+      <input type="checkbox" id="price-51-150" value="51-150"> De R$51 até R$150
+    </label>
+    <label>
+      <input type="checkbox" id="price-151-300" value="151-300"> De R$151 até R$300
+    </label>
+    <label>
+      <input type="checkbox" id="price-301-500" value="301-500"> De R$301 até R$500
+    </label>
+    <label>
+      <input type="checkbox" id="price-500-9999999" value="500-9999999"> A partir de R$500
+    </label>
+    
+    
+    <button id="aplicar">Aplicar<!--só mobile. pode ser fechar--></button>
+    <button id="limpar">Limpar Seleções</button>
+    
+    <hr>
+    
+    <div id="carrinho"></div>
+  </main>
+  
 </body>
-<h1>Desafio m3</h1>
-
-<div id="lista-produtos"></div>
-<button id="carregar-mais">Carregar Mais</button>
-<button id="mais-preco-menor">carregar mais por preço menor</button>
-<button id="mais-preco-maior">carregar mais por preço maior</button>
-<button id="carregar-mais-recente">carregar mais recente</button>
-<button id="preco-menor">preço menor</button>
-<button id="preco-maior">preço maior</button>
-<button id="mais-recente">mais recente</button>
-
-<hr>
-
-<label>
-  <input type="checkbox" id="size-P" value="P"> P
-</label>
-<label>
-  <input type="checkbox" id="size-M" value="M"> M
-</label>
-<label>
-  <input type="checkbox" id="size-G" value="G"> G
-</label>
-<label>
-  <input type="checkbox" id="size-GG" value="GG"> GG
-</label>
-<label>
-  <input type="checkbox" id="size-U" value="U"> U
-</label>
-<label>
-  <input type="checkbox" id="size-36" value="36"> 36
-</label>
-<label>
-  <input type="checkbox" id="size-38" value="38"> 38
-</label>
-<label>
-  <input type="checkbox" id="size-40" value="40"> 40
-</label>
-
-<!-- Filtros de cores -->
-<label>
-  <input type="checkbox" id="color-amarelo" value="amarelo"> Amarelo
-</label>
-<label>
-  <input type="checkbox" id="color-azul" value="azul"> Azul
-</label>
-<label>
-  <input type="checkbox" id="color-branco" value="branco"> Branco
-</label>
-<label>
-  <input type="checkbox" id="color-cinza" value="cinza"> Cinza
-</label>
-<label>
-  <input type="checkbox" id="color-laranja" value="laranja"> Laranja
-</label>
-<label>
-  <input type="checkbox" id="color-verde" value="verde"> Verde
-</label>
-<label>
-  <input type="checkbox" id="color-vermelho" value="vermelho"> Vermelho
-</label>
-<label>
-  <input type="checkbox" id="color-preto" value="preto"> Preto
-</label>
-<label>
-  <input type="checkbox" id="color-rosa" value="rosa"> Rosa
-</label>
-<label>
-  <input type="checkbox" id="color-vinho " value="vinho"> Vinho
-</label>
-
-
-<!-- Filtros de faixa de preço -->
-<label>
-  <input type="checkbox" id="price-0-50" value="0-50"> De R$0 até R$50
-</label>
-<label>
-  <input type="checkbox" id="price-51-150" value="51-150"> De R$51 até R$150
-</label>
-<label>
-  <input type="checkbox" id="price-151-300" value="151-300"> De R$151 até R$300
-</label>
-<label>
-  <input type="checkbox" id="price-301-500" value="301-500"> De R$301 até R$500
-</label>
-<label>
-  <input type="checkbox" id="price-500-9999999" value="500-9999999"> A partir de R$500
-</label>
-
-
-<button id="aplicar">Aplicar<!--só mobile. pode ser fechar--></button>
-<button id="limpar">Limpar Seleções</button>
-
-<hr>
-
-<p id="cart-count"></p>
-<div id="carrinho"></div>
-
-
-
 
 <script src="bundle.js"></script>
 

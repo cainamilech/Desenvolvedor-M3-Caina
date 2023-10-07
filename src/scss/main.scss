@@ -1,4 +1,56 @@
 @import "reset";
+@import "global";
+
+header {
+  padding: 16px 162px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid $gray;
+
+  @media (max-width: 1024px) {
+    padding: 16px 27px;
+  }
+
+  .logo {
+    display: contents;
+
+    img {
+      width: 119px;
+      height: 30px;
+    }
+  }
+
+  .sacola {
+    position: relative;
+    img {
+      width: 17px;
+      height: 20px;
+    }
+
+    div {
+      position: absolute;
+      bottom: 0;
+      right: -5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 12px;
+      height: 12px;
+      border-radius: 100%;
+      background-color: $blue;
+
+      span {
+        color: $white;
+        font-family: Roboto, sans-serif;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  }
+}
 
 img {
   width: 20px;
@@ -6,6 +58,7 @@ img {
 
 #mais-preco-menor,
 #mais-preco-maior,
-#carregar-mais-recente {
+#carregar-mais-recente,
+#cart-count-bg {
   display: none;
 }

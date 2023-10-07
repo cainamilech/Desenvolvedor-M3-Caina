@@ -134,9 +134,15 @@ function main() {
 
     //Atualizar rotulo de quantidade no icone
     const cartCount = document.getElementById("cart-count");
-    totalQuantity > 0
-      ? (cartCount.textContent = `${totalQuantity}`)
-      : (cartCount.textContent = "");
+    const cartCountBg = document.getElementById("cart-count-bg");
+
+    if (totalQuantity > 0) {
+      cartCount.textContent = `${totalQuantity}`;
+      cartCountBg.style.display = "flex";
+    } else {
+      cartCount.textContent = "";
+      cartCountBg.style.display = "none";
+    }
 
     //Remover produto do carrinho
     const removeButtons = document.querySelectorAll(".remove-from-cart-button");
