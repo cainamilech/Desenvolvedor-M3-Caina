@@ -31,17 +31,43 @@
   </header>
 
   <main>
-    <h1>Blusas</h1>
-  
-  
-    <div id="lista-produtos"></div>
+    <div class="top-main">
+      <h1>Blusas</h1>
+
+      <div id="ordenar" class="top-main__ordenar">
+        <span>Ordenar por:</span>
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="11" viewBox="0 0 14 11" fill="none">
+          <path d="M1 1L7 10L13 1.00935" stroke="#666666" stroke-linecap="round"/>
+        </svg>
+
+        <div id="ocultos" class="top-main__ordenar__ocultos">
+          <button id="mais-recente">Mais recentes</button>
+
+          <button id="preco-menor">Menor preço</button>
+
+          <button id="preco-maior">Maior preço</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="middle-main">
+      <div class="middle-main__filtros">filtros</div>
+      
+      <div class="middle-main__produtos" id="lista-produtos">
+        
+      </div>
+    </div>
+
     <button id="carregar-mais">Carregar Mais</button>
-    <button id="mais-preco-menor">carregar mais por preço menor</button>
-    <button id="mais-preco-maior">carregar mais por preço maior</button>
-    <button id="carregar-mais-recente">carregar mais recente</button>
-    <button id="preco-menor">preço menor</button>
-    <button id="preco-maior">preço maior</button>
-    <button id="mais-recente">mais recente</button>
+        <button id="mais-preco-menor">carregar mais por preço menor</button>
+        <button id="mais-preco-maior">carregar mais por preço maior</button>
+        <button id="carregar-mais-recente">carregar mais recente</button>
+    
+ 
+  
+    
+    
     
     <hr>
     

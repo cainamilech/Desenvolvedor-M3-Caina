@@ -16,6 +16,9 @@ function main() {
   const carregarMaisRecente = document.getElementById("carregar-mais-recente");
   const limparSelecoes = document.getElementById("limpar");
 
+  const ordenar = document.getElementById("ordenar");
+  const botoesOcultos = document.getElementById("ocultos");
+
   //EVENTOS
   maisRecente.addEventListener("click", renderMaisRecente);
   precoMaior.addEventListener("click", renderPrecoMaior);
@@ -53,19 +56,29 @@ function main() {
   function renderProducts(products: Product[]) {
     const produtos = products.map(
       (product) => `
-      <div class="product">
-          <img src="${product.image}" alt="${product.name}">
+      <div class="middle-main__produtos__produto">
+          <figure>
+            <img src="${product.image}" alt="${product.name}">
+          </figure>
+          
           <h2>${product.name}</h2>
-          <p>Preço: R$ ${product.price.toFixed(2)}</p>
-          <p>Parcelamento: ${
+
+          <p class="middle-main__produtos__produto__preco">R$ ${product.price
+            .toFixed(2)
+            .replace(".", ",")}</p>
+
+          <p class="middle-main__produtos__produto__parcelamento">até ${
             product.parcelamento[0]
-          }x de R$ ${product.parcelamento[1].toFixed(2)}</p>
+          }x de R$${product.parcelamento[1].toFixed(2).replace(".", ",")}</p>
+          
+          <!--COMENTADO, PARA DEPOIS CONFERIR FUNCIONAMENTO 
           <p>Cor: ${product.color}</p>
           <p>Tamanhos disponíveis: ${product.size.join(", ")}</p>
-          <p>Data de lançamento: ${product.date}</p>
+          <p>Data de lançamento: ${product.date}</p>-->
+
           <button class="add-to-cart-button" data-product-id="${
             product.id
-          }">Adicionar ao Carrinho</button>
+          }">COMPRAR</button>
       </div>
   `
     );
@@ -258,6 +271,7 @@ function main() {
     carregarMaisPrecoMenor.style.display = "none";
     carregarMaisPrecoMaior.style.display = "none";
     carregarMais.style.display = "none";
+    botoesOcultos.style.display = "none";
   }
 
   function renderPrecoMaior() {
@@ -277,6 +291,7 @@ function main() {
     carregarMaisPrecoMenor.style.display = "none";
     carregarMais.style.display = "none";
     carregarMaisRecente.style.display = "none";
+    botoesOcultos.style.display = "none";
   }
 
   function renderPrecoMenor() {
@@ -296,6 +311,7 @@ function main() {
     carregarMaisPrecoMaior.style.display = "none";
     carregarMais.style.display = "none";
     carregarMaisRecente.style.display = "none";
+    botoesOcultos.style.display = "none";
   }
 
   function carregarMaisProdutosPrecoMenor() {
@@ -433,6 +449,27 @@ function main() {
     });
     carregarProdutos();
     carregarMais.style.display = "block";
+  });
+
+  //BOTOES ORDENAR
+  ordenar.addEventListener("click", () => {
+    if (botoesOcultos.style.display === "block") {
+      botoesOcultos.style.display = "none";
+    } else {
+      botoesOcultos.style.display = "block";
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    const targetNode = event.target as Node;
+    //click fora da div ordenar, esconde os botões
+    if (!ordenar.contains(targetNode)) {
+      botoesOcultos.style.display = "none";
+    }
+  });
+
+  botoesOcultos.addEventListener("click", (event) => {
+    event.stopPropagation();
   });
 }
 

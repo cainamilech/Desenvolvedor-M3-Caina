@@ -52,8 +52,148 @@ header {
   }
 }
 
-img {
-  width: 20px;
+main {
+  padding: 40px 162px;
+
+  .top-main {
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+      color: $black2;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    &__ordenar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 142px;
+      height: 42px;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      position: relative;
+
+      svg {
+        width: 12px;
+        height: 9px;
+      }
+
+      &__ocultos {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 1;
+        z-index: 1;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        width: 142px;
+        background-color: $white;
+
+        button {
+          all: unset;
+          display: block;
+          height: 42px;
+          width: 130px;
+          padding-left: 10px;
+          color: $black;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+
+          &:hover {
+            background-color: $blue;
+          }
+        }
+      }
+    }
+  }
+
+  .middle-main {
+    display: flex;
+    gap: 152px; //CORRIGIR
+    margin-top: 54px;
+
+    &__filtros {
+      display: flex;
+      min-width: 157px;
+      border: 1px solid red;
+    }
+
+    &__produtos {
+      border: 1px solid red;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 42px 64px;
+
+      &__produto {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 195.25px;
+        height: 424px;
+
+        figure {
+          display: contents;
+
+          img {
+            width: 195px;
+            margin-bottom: 10px;
+          }
+        }
+
+        h2 {
+          margin-bottom: 10px;
+          color: $black;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          text-transform: uppercase;
+        }
+
+        &__preco {
+          margin-bottom: 1px;
+          color: $black;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+        }
+
+        &__parcelamento {
+          margin-bottom: 14px;
+          color: $gray2;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+
+        button {
+          color: $white;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+          text-transform: uppercase;
+          display: flex;
+          background-color: $black;
+          width: 195px;
+          height: 33px;
+          padding: 7px 49px;
+          justify-content: center;
+          align-items: center;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
 #mais-preco-menor,
