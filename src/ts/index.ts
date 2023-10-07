@@ -49,7 +49,7 @@ function main() {
 
   fetchProducts();
 
-  // Função para renderizar os produtos na página
+  //Função para renderizar os produtos na página
   function renderProducts(products: Product[]) {
     const produtos = products.map(
       (product) => `
@@ -63,17 +63,151 @@ function main() {
           <p>Cor: ${product.color}</p>
           <p>Tamanhos disponíveis: ${product.size.join(", ")}</p>
           <p>Data de lançamento: ${product.date}</p>
+          <button class="add-to-cart-button" data-product-id="${
+            product.id
+          }">Adicionar ao Carrinho</button>
       </div>
   `
     );
 
     listaProdutos.innerHTML = produtos.join("");
+
+    //Assistir eventos de adicionar ao carrinho
+    const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
+    addToCartButtons.forEach((button) => {
+      button.addEventListener("click", addToCart);
+    });
+  }
+
+  //CARRINHO
+
+  //Função para adicionar um produto ao carrinho
+  function addToCart(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
+
+    const productToAdd = allProducts.find(
+      (product) => product.id === productId
+    );
+
+    if (productToAdd) {
+      if (!carrinhoProdutos[productId]) {
+        //Se o produto não estiver no carrinho, add com quantidade 1
+        carrinhoProdutos[productId] = { product: productToAdd, quantity: 1 };
+      } else {
+        //Se o produto já estiver no carrinho, aumenta a quantidade
+        carrinhoProdutos[productId].quantity++;
+      }
+
+      renderCart(); //Renderizar carrinho com novo produto
+    }
+  }
+
+  //Função para renderizar o carrinho
+  function renderCart() {
+    const carrinhoHTML = Object.values(carrinhoProdutos).map(
+      (cartItem) => `
+      <div class="cart-item">
+        <h3>${cartItem.product.name}</h3>
+        <p>Preço: R$ ${cartItem.product.price.toFixed(2)}</p>
+        <p>Quantidade: ${cartItem.quantity}</p>
+        <button class="decrease-quantity-button" data-product-id="${
+          cartItem.product.id
+        }">-</button>
+        <button class="increase-quantity-button" data-product-id="${
+          cartItem.product.id
+        }">+</button>
+        <button class="remove-from-cart-button" data-product-id="${
+          cartItem.product.id
+        }">Remover</button>
+      </div>
+    `
+    );
+
+    carrinho.innerHTML = carrinhoHTML.join("");
+
+    //Total das quantidades de todos os produtos no carrinho
+    const totalQuantity = Object.values(carrinhoProdutos).reduce(
+      (total, cartItem) => total + cartItem.quantity,
+      0
+    );
+
+    //Atualizar rotulo de quantidade no icone
+    const cartCount = document.getElementById("cart-count");
+    totalQuantity > 0
+      ? (cartCount.textContent = `${totalQuantity}`)
+      : (cartCount.textContent = "");
+
+    //Remover produto do carrinho
+    const removeButtons = document.querySelectorAll(".remove-from-cart-button");
+    removeButtons.forEach((button) => {
+      button.addEventListener("click", removeFromCart);
+    });
+
+    //Eventos de somar e subtrair produtos
+    const decreaseButtons = document.querySelectorAll(
+      ".decrease-quantity-button"
+    );
+    decreaseButtons.forEach((button) => {
+      button.addEventListener("click", decreaseQuantity);
+    });
+
+    const increaseButtons = document.querySelectorAll(
+      ".increase-quantity-button"
+    );
+    increaseButtons.forEach((button) => {
+      button.addEventListener("click", increaseQuantity);
+    });
+  }
+
+  //Função para remover um produto do carrinho completamente
+  function removeFromCart(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
+
+    if (carrinhoProdutos[productId]) {
+      delete carrinhoProdutos[productId];
+      renderCart();
+    }
+  }
+
+  //Função para aumentar a quantidade de um produto no carrinho
+  function increaseQuantity(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
+
+    if (carrinhoProdutos[productId]) {
+      carrinhoProdutos[productId].quantity++;
+      renderCart();
+    }
+  }
+
+  //Função para diminuir a quantidade de um produto no carrinho
+  function decreaseQuantity(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
+
+    if (
+      carrinhoProdutos[productId] &&
+      carrinhoProdutos[productId].quantity > 1
+    ) {
+      carrinhoProdutos[productId].quantity--;
+      renderCart();
+    }
   }
 
   // Quantidade de produtos já carregados
   let produtosCarregados = 0;
   // Armazenar produtos
   let allProducts: Product[] = [];
+  //Carrinho
+  const carrinho = document.getElementById("carrinho");
+  // Objeto para rastrear produtos no carrinho e suas quantidades
+  const carrinhoProdutos: {
+    [productId: string]: { product: Product; quantity: number };
+  } = {};
+
+  //CARREGAMENTO DE PRODUTOS
 
   function carregarProdutos() {
     const carregarProdutos = allProducts.slice(0, produtosCarregados + 9);
@@ -264,18 +398,6 @@ function main() {
     renderProducts(filteredProducts);
   }
 
-  //Limpar Seleções
-  limparSelecoes.addEventListener("click", () => {
-    const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(
-      'input[type="checkbox"]'
-    );
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-    carregarProdutos();
-    carregarMais.style.display = "block";
-  });
-
   //Assistir checkboxes
   const sizeCheckboxes: NodeListOf<HTMLInputElement> =
     document.querySelectorAll('input[id^="size-"]');
@@ -293,6 +415,18 @@ function main() {
     document.querySelectorAll('input[id^="price-"]');
   priceCheckboxes.forEach((checkbox) => {
     checkbox.addEventListener("change", filtrarRenderizar);
+  });
+
+  //Limpar Seleções
+  limparSelecoes.addEventListener("click", () => {
+    const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(
+      'input[type="checkbox"]'
+    );
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+    carregarProdutos();
+    carregarMais.style.display = "block";
   });
 }
 
