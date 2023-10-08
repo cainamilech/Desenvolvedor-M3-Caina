@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desenvolvedor M3</title>
+  <title>Desenvolvedor M3 - Cainã</title>
 
   <!--Google Fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,9 @@
 <body>
   <header>
     <figure class="logo">
-      <img src="./img/logo-m3.png" alt="Logo M3">
+      <a href="/">
+        <img src="./img/logo-m3.png" alt="Logo M3">
+      </a>      
     </figure>
   
     <figure class="sacola">
@@ -52,99 +54,182 @@
     </div>
 
     <div class="middle-main">
-      <div class="middle-main__filtros">filtros</div>
+      <div class="middle-main__filtros">
+        <div class="middle-main__filtros__cores">
+          <h3>CORES</h3>
+
+          <div class="middle-main__filtros__cores__labels">
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-amarelo" value="amarelo"> Amarelo
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-azul" value="azul"> Azul
+            </label>
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+            </svg>
+              <input type="checkbox" id="color-branco" value="branco"> Branco
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-cinza" value="cinza"> Cinza
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-laranja" value="laranja"> Laranja
+            </label>
+          </div>
+
+          <div id="ver-todas-cores" class="middle-main__filtros__cores__ver-todas">
+            <span>Ver todas as cores</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
+              <path d="M1 1L4.5 6L8 1.00519" stroke="#666666" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div id="todas-cores" class="middle-main__filtros__cores__labels">
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-verde" value="verde"> Verde
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-vermelho" value="vermelho"> Vermelho
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-preto" value="preto"> Preto
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-rosa" value="rosa"> Rosa
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-vinho " value="vinho"> Vinho
+            </label>
+          </div>
+
+          <div id="ver-menos-cores" class="middle-main__filtros__cores__ver-todas">
+            <span>Ver menos cores</span>
+          </div>
+        </div>
+       
+        <div class="middle-main__filtros__tamanhos">
+          <h3>TAMANHOS</h3>
+
+          <div class="middle-main__filtros__tamanhos__labels">
+            <label>
+              <input type="checkbox" id="size-P" value="P"> P
+            </label>
+            <label>
+              <input type="checkbox" id="size-M" value="M"> M
+            </label>
+            <label>
+              <input type="checkbox" id="size-G" value="G"> G
+            </label>
+            <label>
+              <input type="checkbox" id="size-GG" value="GG"> GG
+            </label>
+            <label>
+              <input type="checkbox" id="size-U" value="U"> U
+            </label>
+            <label>
+              <input type="checkbox" id="size-36" value="36"> 36
+            </label>
+            <label>
+              <input type="checkbox" id="size-38" value="38"> 38
+            </label>
+            <label>
+              <input type="checkbox" id="size-40" value="40"> 40
+            </label>
+            <label>
+              <input type="checkbox" id="size-36" value="36"> 36
+            </label>
+            <label>
+              <input type="checkbox" id="size-38" value="38"> 38
+            </label>
+            <label>
+              <input type="checkbox" id="size-40" value="40"> 40
+            </label>
+          </div>          
+        </div>
+        
+        <div class="middle-main__filtros__precos"> 
+          <h3>FAIXA DE PRECO</h3>         
+
+          <div class="middle-main__filtros__precos__labels">
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="price-0-50" value="0-50"> de R$0 até R$50
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="price-51-150" value="51-150"> de R$51 até R$150
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="price-151-300" value="151-300"> de R$151 até R$300
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="price-301-500" value="301-500"> de R$301 até R$500
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="price-500-9999999" value="500-9999999"> a partir de R$500
+            </label>
+          </div>
+          
+        </div>
+      </div>
       
-      <div class="middle-main__produtos" id="lista-produtos">
+      <div class="middle-main__container">
+        <div class="middle-main__container__produtos" id="lista-produtos"></div>
+
+        <div class="middle-main__container__button">
+          <button id="carregar-mais">CARREGAR MAIS</button>
+          <button id="mais-preco-menor">CARREGAR MAIS</button>
+          <button id="mais-preco-maior">CARREGAR MAIS</button>
+          <button id="carregar-mais-recente">CARREGAR MAIS</button>
+        </div>
         
       </div>
-    </div>
-
-    <button id="carregar-mais">Carregar Mais</button>
-        <button id="mais-preco-menor">carregar mais por preço menor</button>
-        <button id="mais-preco-maior">carregar mais por preço maior</button>
-        <button id="carregar-mais-recente">carregar mais recente</button>
-    
- 
-  
+    </div> 
     
     
     
-    <hr>
-    
-    <label>
-      <input type="checkbox" id="size-P" value="P"> P
-    </label>
-    <label>
-      <input type="checkbox" id="size-M" value="M"> M
-    </label>
-    <label>
-      <input type="checkbox" id="size-G" value="G"> G
-    </label>
-    <label>
-      <input type="checkbox" id="size-GG" value="GG"> GG
-    </label>
-    <label>
-      <input type="checkbox" id="size-U" value="U"> U
-    </label>
-    <label>
-      <input type="checkbox" id="size-36" value="36"> 36
-    </label>
-    <label>
-      <input type="checkbox" id="size-38" value="38"> 38
-    </label>
-    <label>
-      <input type="checkbox" id="size-40" value="40"> 40
-    </label>
-    
-    <!-- Filtros de cores -->
-    <label>
-      <input type="checkbox" id="color-amarelo" value="amarelo"> Amarelo
-    </label>
-    <label>
-      <input type="checkbox" id="color-azul" value="azul"> Azul
-    </label>
-    <label>
-      <input type="checkbox" id="color-branco" value="branco"> Branco
-    </label>
-    <label>
-      <input type="checkbox" id="color-cinza" value="cinza"> Cinza
-    </label>
-    <label>
-      <input type="checkbox" id="color-laranja" value="laranja"> Laranja
-    </label>
-    <label>
-      <input type="checkbox" id="color-verde" value="verde"> Verde
-    </label>
-    <label>
-      <input type="checkbox" id="color-vermelho" value="vermelho"> Vermelho
-    </label>
-    <label>
-      <input type="checkbox" id="color-preto" value="preto"> Preto
-    </label>
-    <label>
-      <input type="checkbox" id="color-rosa" value="rosa"> Rosa
-    </label>
-    <label>
-      <input type="checkbox" id="color-vinho " value="vinho"> Vinho
-    </label>
-    
-    
-    <!-- Filtros de faixa de preço -->
-    <label>
-      <input type="checkbox" id="price-0-50" value="0-50"> De R$0 até R$50
-    </label>
-    <label>
-      <input type="checkbox" id="price-51-150" value="51-150"> De R$51 até R$150
-    </label>
-    <label>
-      <input type="checkbox" id="price-151-300" value="151-300"> De R$151 até R$300
-    </label>
-    <label>
-      <input type="checkbox" id="price-301-500" value="301-500"> De R$301 até R$500
-    </label>
-    <label>
-      <input type="checkbox" id="price-500-9999999" value="500-9999999"> A partir de R$500
-    </label>
+   
     
     
     <button id="aplicar">Aplicar<!--só mobile. pode ser fechar--></button>

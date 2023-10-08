@@ -18,6 +18,9 @@ function main() {
 
   const ordenar = document.getElementById("ordenar");
   const botoesOcultos = document.getElementById("ocultos");
+  const verTodasCores = document.getElementById("ver-todas-cores");
+  const verMenosCores = document.getElementById("ver-menos-cores");
+  const todasCores = document.getElementById("todas-cores");
 
   //EVENTOS
   maisRecente.addEventListener("click", renderMaisRecente);
@@ -56,18 +59,18 @@ function main() {
   function renderProducts(products: Product[]) {
     const produtos = products.map(
       (product) => `
-      <div class="middle-main__produtos__produto">
+      <div class="middle-main__container__produtos__produto">
           <figure>
             <img src="${product.image}" alt="${product.name}">
           </figure>
           
           <h2>${product.name}</h2>
 
-          <p class="middle-main__produtos__produto__preco">R$ ${product.price
+          <p class="middle-main__container__produtos__produto__preco">R$ ${product.price
             .toFixed(2)
             .replace(".", ",")}</p>
 
-          <p class="middle-main__produtos__produto__parcelamento">até ${
+          <p class="middle-main__container__produtos__produto__parcelamento">até ${
             product.parcelamento[0]
           }x de R$${product.parcelamento[1].toFixed(2).replace(".", ",")}</p>
           
@@ -267,7 +270,7 @@ function main() {
     //Renderizar a lista final com o html da funcao render
     renderProducts(listaFinal);
     //Habilitar botão de ver mais
-    carregarMaisRecente.style.display = "block";
+    carregarMaisRecente.style.display = "flex";
     carregarMaisPrecoMenor.style.display = "none";
     carregarMaisPrecoMaior.style.display = "none";
     carregarMais.style.display = "none";
@@ -287,7 +290,7 @@ function main() {
     //Renderizar a lista final com o html da funcao render
     renderProducts(listaFinal);
     //Habilitar botão de ver mais
-    carregarMaisPrecoMaior.style.display = "block";
+    carregarMaisPrecoMaior.style.display = "flex";
     carregarMaisPrecoMenor.style.display = "none";
     carregarMais.style.display = "none";
     carregarMaisRecente.style.display = "none";
@@ -307,7 +310,7 @@ function main() {
     //Renderizar a lista final com o html da funcao render
     renderProducts(listaFinal);
     //Habilitar botão de ver mais
-    carregarMaisPrecoMenor.style.display = "block";
+    carregarMaisPrecoMenor.style.display = "flex";
     carregarMaisPrecoMaior.style.display = "none";
     carregarMais.style.display = "none";
     carregarMaisRecente.style.display = "none";
@@ -439,6 +442,18 @@ function main() {
     checkbox.addEventListener("change", filtrarRenderizar);
   });
 
+  //Mudar classe quando selecionado
+  sizeCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+      const parentLabel = checkbox.closest("label");
+      if (checkbox.checked) {
+        parentLabel.classList.add("selecionado");
+      } else {
+        parentLabel.classList.remove("selecionado");
+      }
+    });
+  });
+
   //Limpar Seleções
   limparSelecoes.addEventListener("click", () => {
     const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(
@@ -470,6 +485,18 @@ function main() {
 
   botoesOcultos.addEventListener("click", (event) => {
     event.stopPropagation();
+  });
+
+  //VER TODAS CORES
+  verTodasCores.addEventListener("click", () => {
+    todasCores.style.display = "flex";
+    verTodasCores.style.display = "none";
+    verMenosCores.style.display = "flex";
+  });
+  verMenosCores.addEventListener("click", () => {
+    todasCores.style.display = "none";
+    verTodasCores.style.display = "inherit";
+    verMenosCores.style.display = "none";
   });
 }
 
