@@ -21,6 +21,15 @@ function main() {
   const verTodasCores = document.getElementById("ver-todas-cores");
   const verMenosCores = document.getElementById("ver-menos-cores");
   const todasCores = document.getElementById("todas-cores");
+  const modalCarrinho = document.getElementById("modal-carrinho");
+  const sacola = document.getElementById("sacola");
+  const fecharCarrinho = document.getElementById("fechar-carrinho");
+  const continuarComprando = document.getElementById("continuar-comprando");
+  const finalizar = document.getElementById("finalizar");
+  const vazio = document.getElementById("vazio");
+  const totalQtd = document.getElementById("total-qtd");
+  const totalValue = document.getElementById("total-preco");
+  const carrinhoTotal = document.getElementById("carrinho-total");
 
   //EVENTOS
   maisRecente.addEventListener("click", renderMaisRecente);
@@ -116,6 +125,15 @@ function main() {
       }
 
       renderCart(); //Renderizar carrinho com novo produto
+      modalCarrinho.style.display = "flex";
+      vazio.style.display = "none";
+      finalizar.style.display = "flex";
+
+      // Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
     }
   }
 
@@ -124,19 +142,33 @@ function main() {
     const carrinhoHTML = Object.values(carrinhoProdutos).map(
       (cartItem) => `
       <div class="cart-item">
+        <div>
+          <figure>
+            <img src="${cartItem.product.image}" alt="${cartItem.product.name}">
+          </figure>
+        </div>
+        
+        <div class="cart-item__nome">
         <h3>${cartItem.product.name}</h3>
-        <p>Preço: R$ ${cartItem.product.price.toFixed(2)}</p>
-        <p>Quantidade: ${cartItem.quantity}</p>
+
+        
         <button class="decrease-quantity-button" data-product-id="${
           cartItem.product.id
         }">-</button>
+        <p>Qtd ${cartItem.quantity}</p>
         <button class="increase-quantity-button" data-product-id="${
           cartItem.product.id
         }">+</button>
+        </div>      
+
+        <p class="preco-item">R$${cartItem.product.price
+          .toFixed(2)
+          .replace(".", ",")}</p>
+
         <button class="remove-from-cart-button" data-product-id="${
           cartItem.product.id
-        }">Remover</button>
-      </div>
+        }">Remover</button></div>
+        </div>
     `
     );
 
@@ -150,15 +182,8 @@ function main() {
 
     //Atualizar rotulo de quantidade no icone
     const cartCount = document.getElementById("cart-count");
-    const cartCountBg = document.getElementById("cart-count-bg");
-
-    if (totalQuantity > 0) {
-      cartCount.textContent = `${totalQuantity}`;
-      cartCountBg.style.display = "flex";
-    } else {
-      cartCount.textContent = "";
-      cartCountBg.style.display = "none";
-    }
+    cartCount.textContent = `${totalQuantity}`;
+    totalQtd.textContent = `Total de produtos: ${totalQuantity}`;
 
     //Remover produto do carrinho
     const removeButtons = document.querySelectorAll(".remove-from-cart-button");
@@ -180,6 +205,12 @@ function main() {
     increaseButtons.forEach((button) => {
       button.addEventListener("click", increaseQuantity);
     });
+
+    if (totalQuantity === 0) {
+      vazio.style.display = "flex";
+      finalizar.style.display = "none";
+      carrinhoTotal.style.display = "none";
+    }
   }
 
   //Função para remover um produto do carrinho completamente
@@ -190,6 +221,12 @@ function main() {
     if (carrinhoProdutos[productId]) {
       delete carrinhoProdutos[productId];
       renderCart();
+
+      // Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
     }
   }
 
@@ -201,6 +238,11 @@ function main() {
     if (carrinhoProdutos[productId]) {
       carrinhoProdutos[productId].quantity++;
       renderCart();
+      // Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
     }
   }
 
@@ -215,7 +257,23 @@ function main() {
     ) {
       carrinhoProdutos[productId].quantity--;
       renderCart();
+      // Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
     }
+  }
+
+  function calcularPrecoTotal(
+    carrinhoProdutos: Record<string, { product: Product; quantity: number }>
+  ) {
+    let totalPrice = 0;
+    for (const productId in carrinhoProdutos) {
+      const cartItem = carrinhoProdutos[productId];
+      totalPrice += cartItem.product.price * cartItem.quantity;
+    }
+    return totalPrice;
   }
 
   // Quantidade de produtos já carregados
@@ -497,6 +555,18 @@ function main() {
     todasCores.style.display = "none";
     verTodasCores.style.display = "inherit";
     verMenosCores.style.display = "none";
+  });
+
+  sacola.addEventListener("click", () => {
+    modalCarrinho.style.display = "flex";
+  });
+
+  fecharCarrinho.addEventListener("click", () => {
+    modalCarrinho.style.display = "none";
+  });
+
+  continuarComprando.addEventListener("click", () => {
+    modalCarrinho.style.display = "none";
   });
 }
 

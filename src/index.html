@@ -23,11 +23,11 @@
       </a>      
     </figure>
   
-    <figure class="sacola">
+    <figure id="sacola" class="sacola">
       <img src="./img/sacola.png" alt="Sacola do carrinho">
   
-      <div id="cart-count-bg">
-        <span id="cart-count"></span>
+      <div>
+        <span id="cart-count">0</span>
       </div>    
     </figure>
   </header>
@@ -235,9 +235,35 @@
     <button id="aplicar">Aplicar<!--só mobile. pode ser fechar--></button>
     <button id="limpar">Limpar Seleções</button>
     
-    <hr>
     
-    <div id="carrinho"></div>
+    
+    <div id="modal-carrinho" class="carrinho">
+      <div class="carrinho__header">
+        <h4>Carrinho</h4>
+        <p id="fechar-carrinho" class="fechar-carrinho">X</p>
+      </div>
+      
+      <div id="carrinho"></div>
+
+      <div id="vazio" class="carrinho__vazio">
+        <p>Seu carrinho está vazio : (</p>
+        <p>Navegue pela loja e adicione produtos.</p>
+      </div>
+
+      <div id="carrinho-total" class="carrinho__total">
+        <p id="total-qtd"></p>
+        <p id="total-preco">Valor total: R$500,00</p>
+      </div>
+
+      <div class="carrinho__continuar">
+        <button id="continuar-comprando">Continuar comprando</button>
+      </div>
+
+
+      <div id="finalizar" class="carrinho__finalizar">
+        <button>Finalizar compra</button>
+      </div>
+    </div>
   </main>
   
 </body>
