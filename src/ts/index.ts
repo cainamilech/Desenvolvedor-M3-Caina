@@ -54,9 +54,7 @@ function main() {
   const menorPrecoMobile = document.getElementById("menor-preco-mobile");
 
   //EVENTOS RENDERIZAÇÃO
-  maisRecente.addEventListener("click", renderMaisRecente);
-  precoMaior.addEventListener("click", renderPrecoMaior);
-  precoMenor.addEventListener("click", renderPrecoMenor);
+
   carregarMais.addEventListener("click", carregarProdutos);
   carregarMaisPrecoMenor.addEventListener(
     "click",
@@ -447,75 +445,201 @@ function main() {
     return price >= min && price <= max;
   }
 
-  //Filtrar e renderizar produtos
-  function filtrarRenderizar(): void {
-    //Arrays para armazenar as seleções de tamanhos, cores e faixa de preço.
-    const selectedSizes: string[] = [];
-    const selectedColors: string[] = [];
-    const selectedPrices: string[] = [];
-
-    carregarMais.style.display = "none";
-
-    //Verificar as seleções de tamanho
+  //Função para verificar se nenhum filtro está selecionado
+  function nenhumFiltroSelecionado(): boolean {
     const sizeCheckboxes: NodeListOf<HTMLInputElement> =
       document.querySelectorAll('input[id^="size-"]:checked');
-    sizeCheckboxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        selectedSizes.push(checkbox.value);
-      }
-    });
-
-    //Verificar as seleções de cores
     const colorCheckboxes: NodeListOf<HTMLInputElement> =
       document.querySelectorAll('input[id^="color-"]:checked');
-
-    colorCheckboxes.forEach((checkbox) => {
-      selectedColors.push(checkbox.value);
-    });
-
-    //Verificar as seleções de faixa de preço
     const priceCheckboxes: NodeListOf<HTMLInputElement> =
       document.querySelectorAll('input[id^="price-"]:checked');
-    priceCheckboxes.forEach((checkbox) => {
-      selectedPrices.push(checkbox.value);
-    });
 
-    //Filtrar os produtos com base nas seleções
-    const filteredProducts: Product[] = allProducts.filter((product) => {
-      // Filtro de tamanho
-      if (
-        selectedSizes.length > 0 &&
-        !selectedSizes.some((size) => product.size.includes(size))
-      ) {
-        return false;
+    return (
+      sizeCheckboxes.length === 0 &&
+      colorCheckboxes.length === 0 &&
+      priceCheckboxes.length === 0 &&
+      opcaoOrdenacao === ""
+    );
+  }
+
+  // Eventos de clique para ordenar produtos
+  maisRecente.addEventListener("click", () => {
+    opcaoOrdenacao = "maisRecente";
+    renderMaisRecente();
+    filtrarRenderizar();
+    if (produtosCarregados > 8) {
+      carregarMaisPrecoMaior.style.display = "none";
+      carregarMaisPrecoMenor.style.display = "none";
+      carregarMais.style.display = "none";
+    }
+  });
+  maisRecenteMobile.addEventListener("click", () => {
+    modalOrdem.style.display = "none";
+    opcaoOrdenacao = "maisRecente";
+    renderMaisRecente();
+    filtrarRenderizar();
+    if (produtosCarregados > 8) {
+      carregarMaisPrecoMaior.style.display = "none";
+      carregarMaisPrecoMenor.style.display = "none";
+      carregarMais.style.display = "none";
+    }
+  });
+
+  precoMaior.addEventListener("click", () => {
+    opcaoOrdenacao = "precoMaior";
+    renderPrecoMaior();
+    filtrarRenderizar();
+    if (produtosCarregados > 8) {
+      carregarMaisPrecoMenor.style.display = "none";
+      carregarMaisRecente.style.display = "none";
+      carregarMais.style.display = "none";
+    }
+  });
+  maiorPrecoMobile.addEventListener("click", () => {
+    modalOrdem.style.display = "none";
+    opcaoOrdenacao = "precoMaior";
+    renderPrecoMaior();
+    filtrarRenderizar();
+    if (produtosCarregados > 8) {
+      carregarMaisPrecoMenor.style.display = "none";
+      carregarMaisRecente.style.display = "none";
+      carregarMais.style.display = "none";
+    }
+  });
+
+  precoMenor.addEventListener("click", () => {
+    opcaoOrdenacao = "precoMenor";
+    renderPrecoMenor();
+    filtrarRenderizar();
+    if (produtosCarregados > 8) {
+      carregarMaisPrecoMaior.style.display = "none";
+      carregarMaisRecente.style.display = "none";
+      carregarMais.style.display = "none";
+    }
+  });
+  menorPrecoMobile.addEventListener("click", () => {
+    modalOrdem.style.display = "none";
+    opcaoOrdenacao = "precoMenor";
+    renderPrecoMenor();
+    filtrarRenderizar();
+    if (produtosCarregados > 8) {
+      carregarMaisPrecoMaior.style.display = "none";
+      carregarMaisRecente.style.display = "none";
+      carregarMais.style.display = "none";
+    }
+  });
+
+  let opcaoOrdenacao: string = "";
+
+  //Filtrar e renderizar produtos
+  function filtrarRenderizar(): void {
+    if (nenhumFiltroSelecionado()) {
+      //Se nenhum filtro estiver selecionado, renderiza apenas os 9 primeiros produtos
+      if (opcaoOrdenacao === "maisRecente") {
+        return;
+      } else if (opcaoOrdenacao === "precoMaior") {
+        return;
+      } else if (opcaoOrdenacao === "precoMenor") {
+        return;
       }
+      const carregarProdutos = allProducts.slice(0, 9);
+      opcaoOrdenacao = "";
+      renderProducts(carregarProdutos);
+      carregarMais.style.display = "flex";
+    } else {
+      // Filtros selecionados, continua a lógica
 
-      //Filtro de cor
-      if (
-        selectedColors.length > 0 &&
-        !selectedColors.some(
-          (color) => product.color.toLowerCase() === color.toLowerCase()
-        )
-      ) {
-        return false;
-      }
+      //Arrays para armazenar as seleções de tamanhos, cores e faixa de preço.
+      const selectedSizes: string[] = [];
+      const selectedColors: string[] = [];
+      const selectedPrices: string[] = [];
 
-      //Filtro de faixa de preço
-      if (selectedPrices.length > 0) {
-        const productPrice: number = product.price;
+      carregarMais.style.display = "none";
+
+      //Verificar as seleções de tamanho
+      const sizeCheckboxes: NodeListOf<HTMLInputElement> =
+        document.querySelectorAll('input[id^="size-"]:checked');
+      sizeCheckboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          selectedSizes.push(checkbox.value);
+        }
+      });
+
+      //Verificar as seleções de cores
+      const colorCheckboxes: NodeListOf<HTMLInputElement> =
+        document.querySelectorAll('input[id^="color-"]:checked');
+
+      colorCheckboxes.forEach((checkbox) => {
+        selectedColors.push(checkbox.value);
+      });
+
+      //Verificar as seleções de faixa de preço
+      const priceCheckboxes: NodeListOf<HTMLInputElement> =
+        document.querySelectorAll('input[id^="price-"]:checked');
+      priceCheckboxes.forEach((checkbox) => {
+        selectedPrices.push(checkbox.value);
+      });
+
+      //Filtrar os produtos com base nas seleções
+      let filteredProducts: Product[] = allProducts.filter((product) => {
+        // Filtro de tamanho
         if (
-          !selectedPrices.some((priceRange) =>
-            faixaDePreco(productPrice, priceRange)
+          selectedSizes.length > 0 &&
+          !selectedSizes.some((size) => product.size.includes(size))
+        ) {
+          return false;
+        }
+
+        //Filtro de cor
+        if (
+          selectedColors.length > 0 &&
+          !selectedColors.some(
+            (color) => product.color.toLowerCase() === color.toLowerCase()
           )
         ) {
           return false;
         }
+
+        //Filtro de faixa de preço
+        if (selectedPrices.length > 0) {
+          const productPrice: number = product.price;
+          if (
+            !selectedPrices.some((priceRange) =>
+              faixaDePreco(productPrice, priceRange)
+            )
+          ) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      filteredProducts = ordenarProdutosComOpcaoSelecionada(
+        filteredProducts
+      ).slice(0, 9);
+      renderProducts(filteredProducts);
+      if (filteredProducts.length < 8) {
+        carregarMaisPrecoMaior.style.display = "none";
+        carregarMaisPrecoMenor.style.display = "none";
+        carregarMaisRecente.style.display = "none";
+      } else {
+        carregarMais.style.display = "flex";
       }
+    }
+  }
 
-      return true;
-    });
-
-    renderProducts(filteredProducts);
+  // Função para ordenar produtos com base na opção selecionada
+  function ordenarProdutosComOpcaoSelecionada(products: Product[]): Product[] {
+    if (opcaoOrdenacao === "maisRecente") {
+      return ordenarMaisRecente(products);
+    } else if (opcaoOrdenacao === "precoMaior") {
+      return ordenarMaiorPreco(products);
+    } else if (opcaoOrdenacao === "precoMenor") {
+      return ordenarMenorPreco(products);
+    } else {
+      return products; //Se nenhuma opção estiver selecionada, retornar os produtos sem ordenação
+    }
   }
 
   //Assistir checkboxes de filtros
@@ -645,18 +769,18 @@ function main() {
   });
 
   //ORDEM MOBILE
-  menorPrecoMobile.addEventListener("click", () => {
-    modalOrdem.style.display = "none";
-    renderPrecoMenor();
-  });
-  maiorPrecoMobile.addEventListener("click", () => {
-    modalOrdem.style.display = "none";
-    renderPrecoMaior();
-  });
-  maisRecenteMobile.addEventListener("click", () => {
-    modalOrdem.style.display = "none";
-    renderMaisRecente();
-  });
+  // menorPrecoMobile.addEventListener("click", () => {
+  //   modalOrdem.style.display = "none";
+  //   renderPrecoMenor();
+  // });
+  // maiorPrecoMobile.addEventListener("click", () => {
+  //   modalOrdem.style.display = "none";
+  //   renderPrecoMaior();
+  // });
+  // maisRecenteMobile.addEventListener("click", () => {
+  //   modalOrdem.style.display = "none";
+  //   renderMaisRecente();
+  // });
   abrirModalOrdem.addEventListener("click", () => {
     modalOrdem.style.display = "block";
   });

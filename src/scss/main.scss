@@ -566,6 +566,7 @@ main {
     }
 
     &__container {
+      width: 100%;
       &__produtos {
         display: flex;
         flex-wrap: wrap;
