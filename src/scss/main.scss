@@ -22,6 +22,11 @@ header {
     img {
       width: 119px;
       height: 30px;
+
+      @media (min-width: 2500px) {
+        width: 240px;
+        height: 60px;
+      }
     }
   }
 
@@ -32,6 +37,11 @@ header {
     img {
       width: 17px;
       height: 20px;
+
+      @media (min-width: 2500px) {
+        width: 40px;
+        height: 43px;
+      }
     }
 
     div {
@@ -46,6 +56,11 @@ header {
       border-radius: 100%;
       background-color: $blue;
 
+      @media (min-width: 2500px) {
+        width: 20px;
+        height: 20px;
+      }
+
       span {
         color: $white;
         font-family: Roboto, sans-serif;
@@ -53,6 +68,10 @@ header {
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+
+        @media (min-width: 2500px) {
+          font-size: 16px;
+        }
       }
     }
   }
@@ -79,6 +98,10 @@ main {
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+
+      @media (min-width: 2500px) {
+        font-size: 44px;
+      }
     }
 
     &__ordenar {
@@ -91,6 +114,23 @@ main {
       border: 1px solid rgba(0, 0, 0, 0.5);
       cursor: pointer;
       position: relative;
+
+      @media (min-width: 2500px) {
+        width: 240px;
+        height: 60px;
+      }
+
+      span {
+        color: $black;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        @media (min-width: 2500px) {
+          font-size: 24px;
+        }
+      }
 
       svg {
         width: 12px;
@@ -107,6 +147,10 @@ main {
         width: 142px;
         background-color: $white;
 
+        @media (min-width: 2500px) {
+          width: 240px;
+        }
+
         button {
           all: unset;
           display: block;
@@ -118,6 +162,12 @@ main {
           font-style: normal;
           font-weight: 400;
           line-height: normal;
+
+          @media (min-width: 2500px) {
+            width: 240px;
+            height: 60px;
+            font-size: 24px;
+          }
 
           &:hover {
             background-color: $blue;
