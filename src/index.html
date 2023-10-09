@@ -53,12 +53,99 @@
       </div>
     </div>
 
-    <div class="middle-main">
-      <div class="middle-main__filtros">
-        <div class="middle-main__filtros__cores">
-          <h3>CORES</h3>
+    <div class="top-main-mobile">
+      <h1>Blusas</h1>
 
-          <div class="middle-main__filtros__cores__labels">
+      <div class="top-main-mobile__buttons">
+        <button id="abrir-modal-filtros">Filtrar</button>
+        
+        <button id="abrir-modal-ordem">Ordenar</button>
+      </div>
+    </div>
+
+    <div class="middle-main">
+      <div id="modal-filtros" class="middle-main__filtros">
+        <div class="middle-main__filtros__filtrar-mobile">
+          <p>FILTRAR</p>
+
+          <svg id="fechar-filtro" xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+            <path d="M0.5 18.852L17.5547 1.00001" stroke="black"/>
+            <line y1="-0.5" x2="25.2899" y2="-0.5" transform="matrix(0.711746 0.702437 -0.874311 0.485367 0 1.23547)" stroke="black"/>
+          </svg>
+        </div>
+        
+        <div class="middle-main__filtros__cores">
+          <div id="cores-mobile"  class="middle-main__filtros__cores__mobile">
+            <h3>CORES</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15" fill="none">
+              <path d="M1 1L10 14L19 1.0135" stroke="#666666" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div id="labels-cores-mobile" class="middle-main__filtros__cores__labels">
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-amarelo" value="amarelo"> Amarelo
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-azul" value="azul"> Azul
+            </label>
+            <label><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+            </svg>
+              <input type="checkbox" id="color-branco" value="branco"> Branco
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-cinza" value="cinza"> Cinza
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-laranja" value="laranja"> Laranja
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-verde" value="verde"> Verde
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-vermelho" value="vermelho"> Vermelho
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-preto" value="preto"> Preto
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-rosa" value="rosa"> Rosa
+            </label>
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
+              </svg>
+              <input type="checkbox" id="color-vinho " value="vinho"> Vinho
+            </label>
+          </div>
+          
+
+          <div id="labels-cores" class="middle-main__filtros__cores__labels">
             <label>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
@@ -136,9 +223,14 @@
         </div>
        
         <div class="middle-main__filtros__tamanhos">
-          <h3>TAMANHOS</h3>
+          <div id="tamanhos-mobile"  class="middle-main__filtros__tamanhos__mobile">
+            <h3>TAMANHOS</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15" fill="none">
+              <path d="M1 1L10 14L19 1.0135" stroke="#666666" stroke-linecap="round"/>
+            </svg>
+          </div>
 
-          <div class="middle-main__filtros__tamanhos__labels">
+          <div id="labels-tamanhos" class="middle-main__filtros__tamanhos__labels">
             <label>
               <input type="checkbox" id="size-P" value="P"> P
             </label>
@@ -176,9 +268,14 @@
         </div>
         
         <div class="middle-main__filtros__precos"> 
-          <h3>FAIXA DE PRECO</h3>         
+          <div id="precos-mobile" class="middle-main__filtros__precos__mobile">
+            <h3>FAIXA DE PREÇO</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15" fill="none">
+              <path d="M1 1L10 14L19 1.0135" stroke="#666666" stroke-linecap="round"/>
+            </svg>
+          </div>        
 
-          <div class="middle-main__filtros__precos__labels">
+          <div id="labels-precos" class="middle-main__filtros__precos__labels">
             <label>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <rect x="0.5" y="0.5" width="15" height="15" stroke="black" stroke-opacity="0.5"/>
@@ -212,9 +309,30 @@
           </div>
           
         </div>
+
+        <div class="middle-main__filtros__aplicar-limpar">
+          <button id="aplicar" class="middle-main__filtros__aplicar-limpar__aplicar">APLICAR</button>
+          <button id="limpar" class="middle-main__filtros__aplicar-limpar__limpar">LIMPAR</button>
+        </div>
+      </div>
+
+      <div id="modal-ordem" class="middle-main__ordem">
+        <div class="middle-main__ordem__titulo">
+          <p>ORDENAR</p>
+          <svg id="fechar-ordem" xmlns="http://www.w3.org/2000/svg" width="19" height="20" viewBox="0 0 19 20" fill="none">
+            <path d="M0.5 18.852L17.5547 1.00001" stroke="black"/>
+            <line y1="-0.5" x2="25.2899" y2="-0.5" transform="matrix(0.711746 0.702437 -0.874311 0.485367 0 1.23547)" stroke="black"/>
+          </svg>
+        </div>
+        
+        <div class="middle-main__ordem__ordenar-mobile">          
+          <p class="middle-main__ordem__ordenar-mobile__opcoes" id="mais-recente-mobile">Mais recente</p>
+          <p class="middle-main__ordem__ordenar-mobile__opcoes" id="maior-preco-mobile">Maior preço</p>
+          <p class="middle-main__ordem__ordenar-mobile__opcoes" id="menor-preco-mobile">Menor preço</p>
+        </div>
       </div>
       
-      <div class="middle-main__container">
+      <section class="middle-main__container">
         <div class="middle-main__container__produtos" id="lista-produtos"></div>
 
         <div class="middle-main__container__button">
@@ -222,19 +340,9 @@
           <button id="mais-preco-menor">CARREGAR MAIS</button>
           <button id="mais-preco-maior">CARREGAR MAIS</button>
           <button id="carregar-mais-recente">CARREGAR MAIS</button>
-        </div>
-        
-      </div>
-    </div> 
-    
-    
-    
-   
-    
-    
-    <button id="aplicar">Aplicar<!--só mobile. pode ser fechar--></button>
-    <button id="limpar">Limpar Seleções</button>
-    
+        </div>        
+      </section>
+    </div>    
     
     
     <div id="modal-carrinho" class="carrinho">
@@ -252,19 +360,22 @@
 
       <div id="carrinho-total" class="carrinho__total">
         <p id="total-qtd"></p>
-        <p id="total-preco">Valor total: R$500,00</p>
+        <p id="total-preco"></p>
       </div>
 
       <div class="carrinho__continuar">
         <button id="continuar-comprando">Continuar comprando</button>
       </div>
 
-
       <div id="finalizar" class="carrinho__finalizar">
         <button>Finalizar compra</button>
       </div>
     </div>
   </main>
+
+  <footer>
+    <p>M3: Implantação de E-commerce VTEX</p>
+  </footer>
   
 </body>
 

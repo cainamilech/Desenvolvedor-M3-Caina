@@ -5,7 +5,7 @@ const serverUrl = "http://localhost:5000";
 function main() {
   console.log(serverUrl);
 
-  //ELEMENTOS
+  //ELEMENTOS CARREGAMENTO
   const listaProdutos = document.getElementById("lista-produtos");
   const precoMaior = document.getElementById("preco-maior");
   const precoMenor = document.getElementById("preco-menor");
@@ -14,13 +14,17 @@ function main() {
   const carregarMaisPrecoMenor = document.getElementById("mais-preco-menor");
   const carregarMaisPrecoMaior = document.getElementById("mais-preco-maior");
   const carregarMaisRecente = document.getElementById("carregar-mais-recente");
-  const limparSelecoes = document.getElementById("limpar");
 
+  //ELEMENTOS FILTROS E ORDENAÇÃO
+  const limparSelecoes = document.getElementById("limpar");
   const ordenar = document.getElementById("ordenar");
   const botoesOcultos = document.getElementById("ocultos");
   const verTodasCores = document.getElementById("ver-todas-cores");
   const verMenosCores = document.getElementById("ver-menos-cores");
   const todasCores = document.getElementById("todas-cores");
+
+  //ELEMENTOS CARRINHO
+  const carrinho = document.getElementById("carrinho");
   const modalCarrinho = document.getElementById("modal-carrinho");
   const sacola = document.getElementById("sacola");
   const fecharCarrinho = document.getElementById("fechar-carrinho");
@@ -31,7 +35,25 @@ function main() {
   const totalValue = document.getElementById("total-preco");
   const carrinhoTotal = document.getElementById("carrinho-total");
 
-  //EVENTOS
+  //ELEMENTOS LAYOUT MOBILE
+  const modalFiltros = document.getElementById("modal-filtros");
+  const fecharFiltro = document.getElementById("fechar-filtro");
+  const abrirModalFiltros = document.getElementById("abrir-modal-filtros");
+  const abrirCoresMobile = document.getElementById("cores-mobile");
+  const abrirTamanhosMobile = document.getElementById("tamanhos-mobile");
+  const abrirPrecosMobile = document.getElementById("precos-mobile");
+  const labelsTamanhos = document.getElementById("labels-tamanhos");
+  const labelsPrecos = document.getElementById("labels-precos");
+  const todasCoresMobile = document.getElementById("labels-cores-mobile");
+  const aplicar = document.getElementById("aplicar");
+  const modalOrdem = document.getElementById("modal-ordem");
+  const abrirModalOrdem = document.getElementById("abrir-modal-ordem");
+  const fecharOrdem = document.getElementById("fechar-ordem");
+  const maisRecenteMobile = document.getElementById("mais-recente-mobile");
+  const maiorPrecoMobile = document.getElementById("maior-preco-mobile");
+  const menorPrecoMobile = document.getElementById("menor-preco-mobile");
+
+  //EVENTOS RENDERIZAÇÃO
   maisRecente.addEventListener("click", renderMaisRecente);
   precoMaior.addEventListener("click", renderPrecoMaior);
   precoMenor.addEventListener("click", renderPrecoMenor);
@@ -61,7 +83,6 @@ function main() {
       console.error(error);
     }
   }
-
   fetchProducts();
 
   //Função para renderizar os produtos na página
@@ -104,191 +125,18 @@ function main() {
     });
   }
 
-  //CARRINHO
-
-  //Função para adicionar um produto ao carrinho
-  function addToCart(event: Event) {
-    const button = event.target as HTMLButtonElement;
-    const productId = button.dataset.productId;
-
-    const productToAdd = allProducts.find(
-      (product) => product.id === productId
-    );
-
-    if (productToAdd) {
-      if (!carrinhoProdutos[productId]) {
-        //Se o produto não estiver no carrinho, add com quantidade 1
-        carrinhoProdutos[productId] = { product: productToAdd, quantity: 1 };
-      } else {
-        //Se o produto já estiver no carrinho, aumenta a quantidade
-        carrinhoProdutos[productId].quantity++;
-      }
-
-      renderCart(); //Renderizar carrinho com novo produto
-      modalCarrinho.style.display = "flex";
-      vazio.style.display = "none";
-      finalizar.style.display = "flex";
-
-      // Chamar função para calcular o novo valor total
-      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
-      totalValue.textContent = `Valor Total: R$ ${totalPrice
-        .toFixed(2)
-        .replace(".", ",")}`;
-    }
-  }
-
-  //Função para renderizar o carrinho
-  function renderCart() {
-    const carrinhoHTML = Object.values(carrinhoProdutos).map(
-      (cartItem) => `
-      <div class="cart-item">
-        <div>
-          <figure>
-            <img src="${cartItem.product.image}" alt="${cartItem.product.name}">
-          </figure>
-        </div>
-        
-        <div class="cart-item__nome">
-        <h3>${cartItem.product.name}</h3>
-
-        
-        <button class="decrease-quantity-button" data-product-id="${
-          cartItem.product.id
-        }">-</button>
-        <p>Qtd ${cartItem.quantity}</p>
-        <button class="increase-quantity-button" data-product-id="${
-          cartItem.product.id
-        }">+</button>
-        </div>      
-
-        <p class="preco-item">R$${cartItem.product.price
-          .toFixed(2)
-          .replace(".", ",")}</p>
-
-        <button class="remove-from-cart-button" data-product-id="${
-          cartItem.product.id
-        }">Remover</button></div>
-        </div>
-    `
-    );
-
-    carrinho.innerHTML = carrinhoHTML.join("");
-
-    //Total das quantidades de todos os produtos no carrinho
-    const totalQuantity = Object.values(carrinhoProdutos).reduce(
-      (total, cartItem) => total + cartItem.quantity,
-      0
-    );
-
-    //Atualizar rotulo de quantidade no icone
-    const cartCount = document.getElementById("cart-count");
-    cartCount.textContent = `${totalQuantity}`;
-    totalQtd.textContent = `Total de produtos: ${totalQuantity}`;
-
-    //Remover produto do carrinho
-    const removeButtons = document.querySelectorAll(".remove-from-cart-button");
-    removeButtons.forEach((button) => {
-      button.addEventListener("click", removeFromCart);
-    });
-
-    //Eventos de somar e subtrair produtos
-    const decreaseButtons = document.querySelectorAll(
-      ".decrease-quantity-button"
-    );
-    decreaseButtons.forEach((button) => {
-      button.addEventListener("click", decreaseQuantity);
-    });
-
-    const increaseButtons = document.querySelectorAll(
-      ".increase-quantity-button"
-    );
-    increaseButtons.forEach((button) => {
-      button.addEventListener("click", increaseQuantity);
-    });
-
-    if (totalQuantity === 0) {
-      vazio.style.display = "flex";
-      finalizar.style.display = "none";
-      carrinhoTotal.style.display = "none";
-    }
-  }
-
-  //Função para remover um produto do carrinho completamente
-  function removeFromCart(event: Event) {
-    const button = event.target as HTMLButtonElement;
-    const productId = button.dataset.productId;
-
-    if (carrinhoProdutos[productId]) {
-      delete carrinhoProdutos[productId];
-      renderCart();
-
-      // Chamar função para calcular o novo valor total
-      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
-      totalValue.textContent = `Valor Total: R$ ${totalPrice
-        .toFixed(2)
-        .replace(".", ",")}`;
-    }
-  }
-
-  //Função para aumentar a quantidade de um produto no carrinho
-  function increaseQuantity(event: Event) {
-    const button = event.target as HTMLButtonElement;
-    const productId = button.dataset.productId;
-
-    if (carrinhoProdutos[productId]) {
-      carrinhoProdutos[productId].quantity++;
-      renderCart();
-      // Chamar função para calcular o novo valor total
-      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
-      totalValue.textContent = `Valor Total: R$ ${totalPrice
-        .toFixed(2)
-        .replace(".", ",")}`;
-    }
-  }
-
-  //Função para diminuir a quantidade de um produto no carrinho
-  function decreaseQuantity(event: Event) {
-    const button = event.target as HTMLButtonElement;
-    const productId = button.dataset.productId;
-
-    if (
-      carrinhoProdutos[productId] &&
-      carrinhoProdutos[productId].quantity > 1
-    ) {
-      carrinhoProdutos[productId].quantity--;
-      renderCart();
-      // Chamar função para calcular o novo valor total
-      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
-      totalValue.textContent = `Valor Total: R$ ${totalPrice
-        .toFixed(2)
-        .replace(".", ",")}`;
-    }
-  }
-
-  function calcularPrecoTotal(
-    carrinhoProdutos: Record<string, { product: Product; quantity: number }>
-  ) {
-    let totalPrice = 0;
-    for (const productId in carrinhoProdutos) {
-      const cartItem = carrinhoProdutos[productId];
-      totalPrice += cartItem.product.price * cartItem.quantity;
-    }
-    return totalPrice;
-  }
-
-  // Quantidade de produtos já carregados
+  //Quantidade de produtos já carregados
   let produtosCarregados = 0;
-  // Armazenar produtos
+
+  //Armazenar produtos
   let allProducts: Product[] = [];
-  //Carrinho
-  const carrinho = document.getElementById("carrinho");
-  // Objeto para rastrear produtos no carrinho e suas quantidades
+
+  //Objeto para rastrear produtos no carrinho e suas quantidades
   const carrinhoProdutos: {
     [productId: string]: { product: Product; quantity: number };
   } = {};
 
   //CARREGAMENTO DE PRODUTOS
-
   function carregarProdutos() {
     const carregarProdutos = allProducts.slice(0, produtosCarregados + 9);
     renderProducts(carregarProdutos);
@@ -402,8 +250,197 @@ function main() {
     }
   }
 
-  //FILTROS
+  //CARRINHO
+  //Função para adicionar um produto ao carrinho
+  function addToCart(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
 
+    const productToAdd = allProducts.find(
+      (product) => product.id === productId
+    );
+
+    if (productToAdd) {
+      if (!carrinhoProdutos[productId]) {
+        //Se o produto não estiver no carrinho, add com quantidade 1
+        carrinhoProdutos[productId] = { product: productToAdd, quantity: 1 };
+      } else {
+        //Se o produto já estiver no carrinho, aumenta a quantidade
+        carrinhoProdutos[productId].quantity++;
+      }
+
+      renderCart(); //Renderizar carrinho com novo produto
+      modalCarrinho.style.display = "flex";
+      vazio.style.display = "none";
+      finalizar.style.display = "flex";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      //Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
+    }
+  }
+
+  //Função para renderizar o carrinho
+  function renderCart() {
+    const carrinhoHTML = Object.values(carrinhoProdutos).map(
+      (cartItem) => `
+      <div class="cart-item">
+        <div>
+          <figure>
+            <img src="${cartItem.product.image}" alt="${cartItem.product.name}">
+          </figure>
+        </div>
+        
+        <div class="cart-item__nome">
+          <h3>${cartItem.product.name}</h3>
+
+          <div class="cart-item__nome__qtd">
+            <button class="decrease-quantity-button" data-product-id="${
+              cartItem.product.id
+            }">-</button>
+            <p>Qtd ${cartItem.quantity}</p>
+            <button class="increase-quantity-button" data-product-id="${
+              cartItem.product.id
+            }">+</button>
+          </div>
+        </div>      
+
+        <p class="preco-item">R$${cartItem.product.price
+          .toFixed(2)
+          .replace(".", ",")}</p>
+
+        <button class="remove-from-cart-button" data-product-id="${
+          cartItem.product.id
+        }">Remover</button>
+      </div>
+    `
+    );
+
+    carrinho.innerHTML = carrinhoHTML.join("");
+
+    //Total das quantidades de todos os produtos no carrinho
+    const totalQuantity = Object.values(carrinhoProdutos).reduce(
+      (total, cartItem) => total + cartItem.quantity,
+      0
+    );
+
+    //Atualizar rotulo de quantidade no icone
+    const cartCount = document.getElementById("cart-count");
+    cartCount.textContent = `${totalQuantity}`;
+    totalQtd.textContent = `Total de produtos: ${totalQuantity}`;
+
+    //Remover produto do carrinho
+    const removeButtons = document.querySelectorAll(".remove-from-cart-button");
+    removeButtons.forEach((button) => {
+      button.addEventListener("click", removeFromCart);
+    });
+
+    //Eventos de somar e subtrair produtos
+    const decreaseButtons = document.querySelectorAll(
+      ".decrease-quantity-button"
+    );
+    decreaseButtons.forEach((button) => {
+      button.addEventListener("click", decreaseQuantity);
+    });
+
+    const increaseButtons = document.querySelectorAll(
+      ".increase-quantity-button"
+    );
+    increaseButtons.forEach((button) => {
+      button.addEventListener("click", increaseQuantity);
+    });
+
+    if (totalQuantity === 0) {
+      vazio.style.display = "flex";
+      finalizar.style.display = "none";
+      carrinhoTotal.style.display = "none";
+    } else {
+      carrinhoTotal.style.display = "flex";
+    }
+  }
+
+  //Função para remover um produto do carrinho completamente
+  function removeFromCart(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
+
+    if (carrinhoProdutos[productId]) {
+      delete carrinhoProdutos[productId];
+      renderCart();
+
+      // Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
+    }
+  }
+
+  //Função para aumentar a quantidade de um produto no carrinho
+  function increaseQuantity(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
+
+    if (carrinhoProdutos[productId]) {
+      carrinhoProdutos[productId].quantity++;
+      renderCart();
+      // Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
+    }
+  }
+
+  //Função para diminuir a quantidade de um produto no carrinho
+  function decreaseQuantity(event: Event) {
+    const button = event.target as HTMLButtonElement;
+    const productId = button.dataset.productId;
+
+    if (
+      carrinhoProdutos[productId] &&
+      carrinhoProdutos[productId].quantity > 1
+    ) {
+      carrinhoProdutos[productId].quantity--;
+      renderCart();
+      // Chamar função para calcular o novo valor total
+      const totalPrice = calcularPrecoTotal(carrinhoProdutos);
+      totalValue.textContent = `Valor Total: R$ ${totalPrice
+        .toFixed(2)
+        .replace(".", ",")}`;
+    }
+  }
+
+  function calcularPrecoTotal(
+    carrinhoProdutos: Record<string, { product: Product; quantity: number }>
+  ) {
+    let totalPrice = 0;
+    for (const productId in carrinhoProdutos) {
+      const cartItem = carrinhoProdutos[productId];
+      totalPrice += cartItem.product.price * cartItem.quantity;
+    }
+    return totalPrice;
+  }
+
+  //Abrir e fechar carrinho
+  sacola.addEventListener("click", () => {
+    modalCarrinho.style.display = "flex";
+  });
+  fecharCarrinho.addEventListener("click", () => {
+    modalCarrinho.style.display = "none";
+  });
+  continuarComprando.addEventListener("click", () => {
+    modalCarrinho.style.display = "none";
+  });
+
+  //FILTROS
   //Verificar preço dentro da faixa selecionada
   function faixaDePreco(price: number, priceRange: string): boolean {
     const [min, max] = priceRange.split("-").map(parseFloat);
@@ -481,7 +518,7 @@ function main() {
     renderProducts(filteredProducts);
   }
 
-  //Assistir checkboxes
+  //Assistir checkboxes de filtros
   const sizeCheckboxes: NodeListOf<HTMLInputElement> =
     document.querySelectorAll('input[id^="size-"]');
   sizeCheckboxes.forEach((checkbox) => {
@@ -512,7 +549,7 @@ function main() {
     });
   });
 
-  //Limpar Seleções
+  //Limpar seleções de filtros
   limparSelecoes.addEventListener("click", () => {
     const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(
       'input[type="checkbox"]'
@@ -521,7 +558,23 @@ function main() {
       checkbox.checked = false;
     });
     carregarProdutos();
-    carregarMais.style.display = "block";
+    //Seleciona todos os elementos <label> com a classe .selecionado e remove.
+    const labelsSelecionados = document.querySelectorAll("label.selecionado");
+    labelsSelecionados.forEach((label) => {
+      label.classList.remove("selecionado");
+    });
+  });
+
+  //VER TODAS CORES
+  verTodasCores.addEventListener("click", () => {
+    todasCores.style.display = "flex";
+    verTodasCores.style.display = "none";
+    verMenosCores.style.display = "flex";
+  });
+  verMenosCores.addEventListener("click", () => {
+    todasCores.style.display = "none";
+    verTodasCores.style.display = "inherit";
+    verMenosCores.style.display = "none";
   });
 
   //BOTOES ORDENAR
@@ -545,28 +598,85 @@ function main() {
     event.stopPropagation();
   });
 
-  //VER TODAS CORES
-  verTodasCores.addEventListener("click", () => {
-    todasCores.style.display = "flex";
-    verTodasCores.style.display = "none";
-    verMenosCores.style.display = "flex";
-  });
-  verMenosCores.addEventListener("click", () => {
-    todasCores.style.display = "none";
-    verTodasCores.style.display = "inherit";
-    verMenosCores.style.display = "none";
+  //FILTROS MOBILE
+  abrirModalFiltros.addEventListener("click", () => {
+    modalFiltros.style.display = "flex";
   });
 
-  sacola.addEventListener("click", () => {
-    modalCarrinho.style.display = "flex";
+  fecharFiltro.addEventListener("click", () => {
+    modalFiltros.style.display = "none";
   });
 
-  fecharCarrinho.addEventListener("click", () => {
-    modalCarrinho.style.display = "none";
+  aplicar.addEventListener("click", () => {
+    modalFiltros.style.display = "none";
   });
 
-  continuarComprando.addEventListener("click", () => {
-    modalCarrinho.style.display = "none";
+  let coresVisiveis = false;
+  abrirCoresMobile.addEventListener("click", () => {
+    if (coresVisiveis) {
+      todasCoresMobile.style.display = "none";
+      coresVisiveis = false;
+    } else {
+      todasCoresMobile.style.display = "flex";
+      coresVisiveis = true;
+    }
+  });
+
+  let tamanhosVisiveis = false;
+  abrirTamanhosMobile.addEventListener("click", () => {
+    if (tamanhosVisiveis) {
+      labelsTamanhos.style.display = "none";
+      tamanhosVisiveis = false;
+    } else {
+      labelsTamanhos.style.display = "flex";
+      tamanhosVisiveis = true;
+    }
+  });
+
+  let precosVisiveis = false;
+  abrirPrecosMobile.addEventListener("click", () => {
+    if (precosVisiveis) {
+      labelsPrecos.style.display = "none";
+      precosVisiveis = false;
+    } else {
+      labelsPrecos.style.display = "flex";
+      precosVisiveis = true;
+    }
+  });
+
+  //ORDEM MOBILE
+  menorPrecoMobile.addEventListener("click", () => {
+    modalOrdem.style.display = "none";
+    renderPrecoMenor();
+  });
+  maiorPrecoMobile.addEventListener("click", () => {
+    modalOrdem.style.display = "none";
+    renderPrecoMaior();
+  });
+  maisRecenteMobile.addEventListener("click", () => {
+    modalOrdem.style.display = "none";
+    renderMaisRecente();
+  });
+  abrirModalOrdem.addEventListener("click", () => {
+    modalOrdem.style.display = "block";
+  });
+  fecharOrdem.addEventListener("click", () => {
+    modalOrdem.style.display = "none";
+  });
+
+  //EVITAR BUGS EM REDIMENSIONAMENTO DE TELA
+  window.addEventListener("resize", () => {
+    if (window.innerWidth < 1025) {
+      verTodasCores.style.display = "none";
+      verMenosCores.style.display = "none";
+      modalFiltros.style.display = "none";
+      todasCores.style.display = "none";
+    }
+    if (window.innerWidth > 1024) {
+      modalFiltros.style.display = "flex";
+      todasCoresMobile.style.display = "none";
+      verTodasCores.style.display = "inherit";
+    }
   });
 }
 
