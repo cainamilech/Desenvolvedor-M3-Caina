@@ -164,7 +164,7 @@ main {
           line-height: normal;
 
           @media (min-width: 2500px) {
-            width: 240px;
+            width: 230px;
             height: 60px;
             font-size: 24px;
           }
@@ -212,7 +212,7 @@ main {
 
   .middle-main {
     display: flex;
-    gap: 11.33%; //CORRIGIR
+    gap: 11.33%;
     margin-top: 54px;
 
     &__ordem {
@@ -281,6 +281,11 @@ main {
       min-width: 157px;
       width: 157px;
 
+      @media (min-width: 2500px) {
+        min-width: 200px;
+        width: 200px;
+      }
+
       h3 {
         color: $black2;
         font-size: 16px;
@@ -294,6 +299,10 @@ main {
           font-size: 24px;
           font-style: normal;
           letter-spacing: 1.2px;
+        }
+
+        @media (min-width: 2500px) {
+          font-size: 24px;
         }
       }
 
@@ -381,6 +390,10 @@ main {
             align-items: center;
             position: relative;
 
+            @media (min-width: 2500px) {
+              font-size: 18px;
+            }
+
             svg {
               position: absolute;
               background-color: white;
@@ -422,6 +435,10 @@ main {
             line-height: 100%;
             text-decoration-line: underline;
             margin-right: 2px;
+
+            @media (min-width: 2500px) {
+              font-size: 16px;
+            }
           }
 
           svg {
@@ -556,6 +573,10 @@ main {
             align-items: center;
             position: relative;
 
+            @media (min-width: 2500px) {
+              font-size: 18px;
+            }
+
             svg {
               position: absolute;
               background-color: white;
@@ -626,6 +647,10 @@ main {
           gap: 18px 19px;
         }
 
+        @media (min-width: 2500px) {
+          gap: 70px 130px;
+        }
+
         &__produto {
           display: flex;
           flex-direction: column;
@@ -691,6 +716,9 @@ main {
               height: unset;
               text-align: center;
             }
+            @media (min-width: 2500px) {
+              font-size: 20px;
+            }
           }
 
           &__preco {
@@ -703,6 +731,9 @@ main {
 
             @media (max-width: 1024px) {
               margin-bottom: 0;
+            }
+            @media (min-width: 2500px) {
+              font-size: 20px;
             }
           }
 
@@ -726,6 +757,9 @@ main {
             @media (max-width: 300px) {
               height: unset;
             }
+            @media (min-width: 2500px) {
+              font-size: 20px;
+            }
           }
 
           button {
@@ -744,6 +778,11 @@ main {
             align-items: center;
             border: none;
             cursor: pointer;
+
+            @media (min-width: 2500px) {
+              height: 40px;
+              font-size: 20px;
+            }
           }
         }
       }
@@ -780,6 +819,12 @@ main {
           @media (max-width: 1024px) {
             margin-right: 0px;
           }
+
+          @media (min-width: 2500px) {
+            font-size: 20px;
+            width: 250px;
+            height: 50px;
+          }
         }
       }
     }
@@ -801,6 +846,10 @@ main {
       width: 100%;
     }
 
+    @media (min-width: 2500px) {
+      width: 750px;
+    }
+
     &__header {
       display: flex;
       justify-content: space-between;
@@ -810,14 +859,25 @@ main {
       height: 70px;
       color: $white;
 
+      @media (min-width: 2500px) {
+        padding: 50px;
+      }
+
       h4 {
         font-size: 30px;
+
+        @media (min-width: 2500px) {
+          font-size: 40px;
+        }
       }
 
       p {
         font-size: 25px;
         font-family: Roboto, sans-serif;
         cursor: pointer;
+        @media (min-width: 2500px) {
+          font-size: 40px;
+        }
       }
     }
 
@@ -832,10 +892,19 @@ main {
         padding: 10px;
       }
 
+      @media (min-width: 2500px) {
+        padding: 30px;
+      }
+
       img {
         width: 60px;
         height: 80px;
         border-radius: 20px;
+
+        @media (min-width: 2500px) {
+          width: 100px;
+          height: 110px;
+        }
       }
 
       &__nome {
@@ -850,6 +919,11 @@ main {
         h3 {
           font-size: 14px;
           width: 110px;
+
+          @media (min-width: 2500px) {
+            font-size: 20px;
+            width: 200px;
+          }
         }
 
         &__qtd {
@@ -881,6 +955,11 @@ main {
             @media (max-width: 360px) {
               width: 50px;
             }
+
+            @media (min-width: 2500px) {
+              font-size: 20px;
+              width: 80px;
+            }
           }
         }
       }
@@ -888,12 +967,21 @@ main {
       .preco-item {
         font-size: 14px;
         width: 60px;
+
+        @media (min-width: 2500px) {
+          font-size: 20px;
+          width: 80px;
+        }
       }
 
       .remove-from-cart-button {
         border: none;
         border-radius: 10px;
         cursor: pointer;
+
+        @media (min-width: 2500px) {
+          font-size: 20px;
+        }
       }
     }
 
@@ -910,6 +998,11 @@ main {
         border: none;
         font-size: 18px;
         cursor: pointer;
+
+        @media (min-width: 2500px) {
+          font-size: 20px;
+          width: 500px;
+        }
       }
     }
 
@@ -921,6 +1014,10 @@ main {
       color: $gray2;
       margin-top: 130px;
       margin-bottom: 30px;
+
+      @media (min-width: 2500px) {
+        font-size: 20px;
+      }
     }
 
     &__total {
@@ -934,6 +1031,10 @@ main {
         gap: 10px;
         flex-direction: column;
         align-items: center;
+      }
+
+      @media (min-width: 2500px) {
+        font-size: 20px;
       }
     }
 
@@ -951,6 +1052,11 @@ main {
         font-size: 18px;
         cursor: pointer;
         background-color: rgb(9, 179, 9);
+
+        @media (min-width: 2500px) {
+          font-size: 20px;
+          width: 500px;
+        }
       }
     }
   }
@@ -967,6 +1073,9 @@ footer {
   @media (max-width: 1024px) {
     margin-top: 44px;
   }
+  @media (min-width: 2500px) {
+    padding: 16px;
+  }
 
   p {
     color: $white;
@@ -977,6 +1086,10 @@ footer {
     letter-spacing: 0.7px;
     text-transform: uppercase;
     text-align: center;
+
+    @media (min-width: 2500px) {
+      font-size: 20px;
+    }
   }
 }
 
