@@ -768,19 +768,6 @@ function main() {
     }
   });
 
-  //ORDEM MOBILE
-  // menorPrecoMobile.addEventListener("click", () => {
-  //   modalOrdem.style.display = "none";
-  //   renderPrecoMenor();
-  // });
-  // maiorPrecoMobile.addEventListener("click", () => {
-  //   modalOrdem.style.display = "none";
-  //   renderPrecoMaior();
-  // });
-  // maisRecenteMobile.addEventListener("click", () => {
-  //   modalOrdem.style.display = "none";
-  //   renderMaisRecente();
-  // });
   abrirModalOrdem.addEventListener("click", () => {
     modalOrdem.style.display = "block";
   });

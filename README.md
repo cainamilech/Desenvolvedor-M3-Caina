@@ -2,6 +2,16 @@
 
 Email para contato: cainamilech15@hotmail.com
 
+Projeto de página de categoria com finalidade de renderizar produtos, nos quais podem ser filtrados por diversas opcões e ordenados por preço ou por data de lançamento. Além da funcionalidade de adicionar os produtos ao carrinho de compras, no qual abrirá um modal do carrinho assim que itens forem adicionados, o carrinho também tem opção de aumentar ou diminuir a quantidade de itens, ou até mesmo removê-lo, sendo atualizado o valor total do carrinho e a quantidade total de itens, estas quantidades que também são renderizadas no ícone da sacola no header da página.
+
+Layout seguido por projeto no Figma, com responsividade para todas as dimensões de telas.
+
+Foi adicionado um processo de otimização de imagens do gulp, no qual tem o objetivo de rezudir o tamanho das imagens sem que seja perdida sua qualidade.
+
+Para instalar as dependências do projeto, executar o comando do nodeJs no terminal: npm install
+Para rodar o projeto no navegador, executar o comando npm start.
+A página abrirá em http://localhost:3000.
+
 ---
 
 # Venha ser um desenvolvedor da Digital M3
